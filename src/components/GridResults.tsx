@@ -14,7 +14,14 @@ import { useGridOptions } from "../stores/GridContext";
 const GridResults = () => {
   const { options } = useGridOptions();
   const rows = [
-    { id: 1, lr: 900, hr: 1200, grids: 32, executed: 40, profits: 4.5 },
+    {
+      id: 1,
+      lr: options.range[0],
+      hr: options.range[1],
+      grids: 32,
+      executed: 40,
+      profits: 4.5,
+    },
   ];
   return (
     <div>
