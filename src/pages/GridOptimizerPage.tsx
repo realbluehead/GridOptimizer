@@ -5,7 +5,7 @@ import { GridOptionsContextProvider } from "../stores/GridContext";
 
 const GridOptimizerPage = () => {
   return (
-    <div>
+    <>
       <GridOptionsContextProvider>
         <div>
           <GridSource></GridSource>
@@ -13,7 +13,7 @@ const GridOptimizerPage = () => {
           <GridResults></GridResults>
         </div>
       </GridOptionsContextProvider>
-    </div>
+    </>
   );
 };
 

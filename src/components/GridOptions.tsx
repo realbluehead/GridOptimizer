@@ -22,7 +22,7 @@ const GridOptions = () => {
   };
 
   return (
-    <div>
+    <>
       <Container>
         <Box mt={2}>
           <h4>GRID OPTIONS</h4>
@@ -70,7 +70,7 @@ const GridOptions = () => {
           </form>
         </Box>
       </Container>
-    </div>
+    </>
   );
 };
 

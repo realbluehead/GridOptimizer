@@ -24,7 +24,7 @@ const GridResults = () => {
     },
   ];
   return (
-    <div>
+    <>
       <Container>
         <Box mt={2}>
           <h4>GRID RESULTS</h4>
@@ -73,7 +73,7 @@ const GridResults = () => {
           </TableContainer>
         </Box>
       </Container>
-    </div>
+    </>
   );
 };
 

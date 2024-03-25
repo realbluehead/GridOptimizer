@@ -76,7 +76,7 @@ const GridSource = () => {
   };
 
   return (
-    <div>
+    <>
       <Container>
         <Box mt={2}>
           <h4>DATA SOURCE</h4>
@@ -124,7 +124,7 @@ const GridSource = () => {
           </form>
         </Box>
       </Container>
-    </div>
+    </>
   );
 };
 
