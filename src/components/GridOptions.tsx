@@ -61,10 +61,12 @@ const GridOptions = () => {
                   margin="normal"
                 />
               </Grid>
+              <Grid container justifyContent="flex-end" xs={12}>
+                <Button type="submit" variant="contained" color="primary">
+                  OPTIMIZE
+                </Button>
+              </Grid>
             </Grid>
-            <Button type="submit" variant="contained" color="primary">
-              OPTIMIZE
-            </Button>
           </form>
         </Box>
       </Container>
