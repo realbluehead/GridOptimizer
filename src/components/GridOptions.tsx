@@ -16,17 +16,12 @@ const GridOptions = () => {
     setOptions({ ...options, numGrids: options.numGrids + 1 });
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log(formData);
-  };
-
   return (
     <>
       <Container>
         <Box mt={2}>
           <h4>GRID OPTIONS</h4>
-          <form onSubmit={handleSubmit}>
+          <form>
             <Grid container spacing={2}>
               <Grid item xs={4}>
                 <TextField
@@ -60,11 +55,6 @@ const GridOptions = () => {
                   onChange={handleChange}
                   margin="normal"
                 />
-              </Grid>
-              <Grid container justifyContent="flex-end" xs={12}>
-                <Button type="submit" variant="contained" color="primary">
-                  OPTIMIZE
-                </Button>
               </Grid>
             </Grid>
           </form>

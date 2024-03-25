@@ -8,10 +8,12 @@ import {
   TableHead,
   TableRow,
   TableBody,
+  Button,
+  Grid,
 } from "@mui/material";
 import { useGridOptions } from "../stores/GridContext";
 
-const GridResults = () => {
+const GridOptimizer = () => {
   const { options } = useGridOptions();
   const rows = [
     {
@@ -23,12 +25,33 @@ const GridResults = () => {
       profits: 4.5,
     },
   ];
+
+  function handleRun() {
+    const optimizer = new Worker(
+      new URL("../services/OptimizerWorker.ts", import.meta.url)
+    );
+    optimizer.onmessage = (event) => {
+      console.log("Message received from worker:", event.data);
+    };
+    optimizer.postMessage({ action: "start", options });
+  }
+
   return (
     <>
       <Container>
         <Box mt={2}>
-          <h4>GRID RESULTS</h4>
+          <h4>GRID OPTIMIZER</h4>
         </Box>
+        <Grid container justifyContent="flex-end">
+          <Button
+            type="button"
+            variant="contained"
+            color="primary"
+            onClick={handleRun}
+          >
+            OPTIMIZE
+          </Button>
+        </Grid>
         <Box mt={2}>
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -77,4 +100,4 @@ const GridResults = () => {
   );
 };
 
-export default GridResults;
+export default GridOptimizer;
