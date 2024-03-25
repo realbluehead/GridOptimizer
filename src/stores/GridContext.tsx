@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext } from "react";
 
-interface GridOptions {
+export interface GridOptions {
   pair: string;
   range: Array<number>;
   numGrids: number;
@@ -16,9 +16,9 @@ const GridContext = createContext<GridContextType | undefined>(undefined);
 const GridOptionsContextProvider = (props: { children: JSX.Element }) => {
   const [options, setOptions] = useState<GridOptions>({
     pair: "ADA/BTC",
-    range: [900, 1100],
+    range: [900, 11000],
     numGrids: 16,
-    dateRange: 60 * 24,
+    dateRange: 60 * 24 * 1000,
   });
   const contextValue: GridContextType = { options, setOptions };
 

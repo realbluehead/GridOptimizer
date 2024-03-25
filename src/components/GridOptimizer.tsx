@@ -12,26 +12,25 @@ import {
   Grid,
 } from "@mui/material";
 import { useGridOptions } from "../stores/GridContext";
+import { useState } from "react";
 
+interface Result {
+  id: number;
+  rl: number;
+  rh: number;
+  grid: number;
+  dateRange: number;
+}
 const GridOptimizer = () => {
   const { options } = useGridOptions();
-  const rows = [
-    {
-      id: 1,
-      lr: options.range[0],
-      hr: options.range[1],
-      grids: 32,
-      executed: 40,
-      profits: 4.5,
-    },
-  ];
+  const [results, setResults] = useState<Array<Result>>([]);
 
   function handleRun() {
     const optimizer = new Worker(
       new URL("../services/OptimizerWorker.ts", import.meta.url)
     );
     optimizer.onmessage = (event) => {
-      console.log("Message received from worker:", event.data);
+      setResults([event.data]);
     };
     optimizer.postMessage({ action: "start", options });
   }
@@ -61,12 +60,10 @@ const GridOptimizer = () => {
                   <TableCell>Low Range</TableCell>
                   <TableCell>High Range</TableCell>
                   <TableCell>#Grids</TableCell>
-                  <TableCell>Orders executed</TableCell>
-                  <TableCell>Profits %</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row) => (
+                {results.map((row) => (
                   <TableRow
                     key={row.id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -75,19 +72,13 @@ const GridOptimizer = () => {
                       {row.id}
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      {row.lr}
+                      {row.rl}
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      {row.hr}
+                      {row.rh}
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      {row.grids}
-                    </TableCell>
-                    <TableCell component="th" scope="row">
-                      {row.executed}
-                    </TableCell>
-                    <TableCell component="th" scope="row">
-                      {row.profits}
+                      {row.grid}
                     </TableCell>
                   </TableRow>
                 ))}
