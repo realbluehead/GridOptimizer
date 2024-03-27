@@ -12,7 +12,7 @@ import {
   Grid,
 } from "@mui/material";
 import { useGridOptions } from "../stores/GridContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Result {
   id: number;

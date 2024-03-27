@@ -12,19 +12,19 @@ const GridOptions = () => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    let updatedOptions = options;
-    updatedOptions = {
+    let updatedOptions = {
       range: [formData.lowRange, formData.highRange],
       numGrids: formData.numGrids,
       pair: "ADA/BTC",
       dateRange: 222,
     };
     setFormData({ ...formData, [name]: value });
+    if (name == "lowRange") updatedOptions.range[0] = Number.parseInt(value);
+    if (name == "highRange") updatedOptions.range[1] = Number.parseInt(value);
     updatedOptions = { ...updatedOptions, [name]: value };
     setOptions({
       ...updatedOptions,
     });
-    console.log("update", updatedOptions);
   };
 
   return (

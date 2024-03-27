@@ -10,10 +10,11 @@ import {
   ButtonGroup,
 } from "@mui/material";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGridOptions } from "../stores/GridContext";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
+import { DATA } from "../data";
 
 interface SelectOption {
   value: string;
@@ -47,19 +48,32 @@ const GridSource = () => {
     dateRange: 60 * 1 * 24,
   });
 
-  const chartOptions = {
+  const [chartOptions, setChartOptions] = useState({
     chart: {
-      type: "spline",
+      type: "line",
     },
     title: {
       text: "ADA/BTC",
     },
+    xAxis: {
+      type: "datetime",
+    },
     series: [
       {
-        data: [1, 2, 1, 4, 3, 6],
+        data: [{ x: 1, y: 2 }],
       },
     ],
-  };
+  });
+
+  useEffect(() => {
+    const newData = DATA.elements.map((el) => {
+      return { x: Number.parseInt(el.date), y: Number.parseFloat(el.max) };
+    });
+
+    setChartOptions({ ...chartOptions, series: [{ data: newData }] });
+
+    console.log(chartOptions);
+  }, []);
 
   const handleChange = (event: any) => {
     setFormData({ ...formData, pair: event.target.value as string });
