@@ -10,7 +10,7 @@ import {
   ButtonGroup,
 } from "@mui/material";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useGridOptions } from "../stores/GridContext";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
@@ -135,7 +135,7 @@ const GridSource = () => {
           <h4>DATA SOURCE</h4>
           <form onSubmit={handleSubmit}>
             <Grid container spacing={2}>
-              <Grid item xs={4}>
+              <Grid item xs={6} md={4}>
                 <FormControl variant="outlined" fullWidth>
                   <InputLabel id="select-label">Pair</InputLabel>
                   <Select
@@ -152,7 +152,7 @@ const GridSource = () => {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={12} md={8}>
                 <ButtonGroup
                   variant="contained"
                   aria-label="Basic button group"

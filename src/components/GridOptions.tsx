@@ -18,6 +18,7 @@ const GridOptions = () => {
       pair: "ADA/BTC",
       dateRange: 222,
     };
+    console.log(options);
     setFormData({ ...formData, [name]: value });
     if (name == "lowRange") updatedOptions.range[0] = Number.parseInt(value);
     if (name == "highRange") updatedOptions.range[1] = Number.parseInt(value);
