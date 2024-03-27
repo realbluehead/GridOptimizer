@@ -39,7 +39,9 @@ const GridOptimizer = () => {
     <>
       <Container>
         <Box mt={2}>
-          <h4>GRID OPTIMIZER</h4>
+          <h4>
+            GRID OPTIMIZER {options.range[0]}-{options.range[1]}
+          </h4>
         </Box>
         <Grid container justifyContent="flex-end">
           <Button

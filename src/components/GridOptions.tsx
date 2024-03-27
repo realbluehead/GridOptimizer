@@ -1,4 +1,4 @@
-import { Container, Box, TextField, Button, Grid } from "@mui/material";
+import { Container, Box, TextField, Grid } from "@mui/material";
 import { useGridOptions } from "../stores/GridContext";
 import { useState } from "react";
 
@@ -12,8 +12,18 @@ const GridOptions = () => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+    let updatedOptions = {
+      range: [formData.lowRange, formData.highRange],
+      numGrids: formData.numGrids,
+      pair: "ADA/BTC",
+      dateRange: 222,
+    };
     setFormData({ ...formData, [name]: value });
-    setOptions({ ...options, numGrids: options.numGrids + 1 });
+    updatedOptions = { ...updatedOptions, [name]: value };
+    setOptions({
+      ...updatedOptions,
+    });
+    console.log("update", updatedOptions);
   };
 
   return (
