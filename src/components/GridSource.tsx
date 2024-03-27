@@ -10,7 +10,7 @@ import {
   ButtonGroup,
 } from "@mui/material";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGridOptions } from "../stores/GridContext";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
@@ -47,7 +47,18 @@ const GridSource = () => {
     pair: "ADABTC",
     dateRange: 60 * 1 * 24,
   });
-
+  let max = 0;
+  let min = 0;
+  let internalChart: {
+    yAxis: {
+      addPlotLine: (arg0: {
+        value: number;
+        color: string;
+        width: number;
+        id: string;
+      }) => void;
+    }[];
+  } | null = null;
   const [chartOptions, setChartOptions] = useState({
     chart: {
       type: "line",
@@ -64,16 +75,44 @@ const GridSource = () => {
       },
     ],
   });
-
+  const afterChartCreated = (chart: any) => {
+    // Highcharts creates a separate chart instance during export
+    if (!chart.options.chart.forExport) {
+      internalChart = chart;
+    }
+  };
   useEffect(() => {
+    min = Number.parseFloat(DATA.elements[0].max);
+    max = Number.parseFloat(DATA.elements[0].max);
     const newData = DATA.elements.map((el) => {
+      if (Number.parseFloat(el.max) > max) {
+        max = Number.parseFloat(el.max);
+      }
+      if (Number.parseFloat(el.max) < min) {
+        min = Number.parseFloat(el.max);
+      }
       return { x: Number.parseInt(el.date), y: Number.parseFloat(el.max) };
     });
-
     setChartOptions({ ...chartOptions, series: [{ data: newData }] });
-
-    console.log(chartOptions);
   }, []);
+
+  useEffect(() => {
+    if (internalChart) {
+      console.log("Afegeixo linia");
+      internalChart.yAxis[0].addPlotLine({
+        value: min,
+        color: "green",
+        width: 2,
+        id: "low",
+      });
+      internalChart.yAxis[0].addPlotLine({
+        value: max,
+        color: "green",
+        width: 2,
+        id: "high",
+      });
+    }
+  });
 
   const handleChange = (event: any) => {
     setFormData({ ...formData, pair: event.target.value as string });
@@ -134,7 +173,11 @@ const GridSource = () => {
                 </ButtonGroup>
               </Grid>
             </Grid>
-            <HighchartsReact highcharts={Highcharts} options={chartOptions} />
+            <HighchartsReact
+              highcharts={Highcharts}
+              options={chartOptions}
+              callback={afterChartCreated}
+            />
           </form>
         </Box>
       </Container>
